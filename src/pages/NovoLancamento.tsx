@@ -116,14 +116,19 @@ const NovoLancamento: React.FC = () => {
         var dataVencimento = getInput('data-vencimento-input')
         var prazo = getInput('checkbox')
         var conta = getInput('conta')
-        var tipoString = getInput('tipo').value
-        let tipo: 'credito' | 'debito'
-        if (tipoString === 'credito'){
-            tipo = 'credito'
-        }
-        else{
-            tipo = 'debito'
-        }
+        let tipo: 'credito' | 'debito' = 'credito'
+        
+        try{
+            var tipoString = getInput('tipo').value
+            if (tipoString === 'credito'){
+                tipo = 'credito'
+            }
+            else{
+                tipo = 'debito'
+            }
+
+        }catch{}
+        
 
         try{
             if(id){
@@ -146,6 +151,7 @@ const NovoLancamento: React.FC = () => {
                 navigate("/lancamentos")
             }
             else{
+                console.log('else ')
                 await addLancamentoService(data.value, descricao.value, valor.value, contaDebitar.value, 'debito', dataVencimento.value, prazo, user)
                 await addLancamentoService(data.value, descricao.value, valor.value, contaCreditar.value, 'credito', dataVencimento.value, prazo, user)
                 window.alert("Lançamanto realizado com sucesso!!!")
