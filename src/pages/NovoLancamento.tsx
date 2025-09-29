@@ -29,6 +29,7 @@ const NovoLancamento: React.FC = () => {
                 if (user) {
                     const data = await getAllContaService();
                     setContas(data);
+                    setLoading(false)
                 }
             };
             fetchContas();
