@@ -58,10 +58,10 @@ Um sistema web que permite o gerenciamento de **lançamentos financeiros** vincu
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/dbarbosadavid/DBIT-Contas.git
 
 # Acesse a pasta do projeto
-cd seu-repositorio
+cd DBIT-Contas
 
 # Instale as dependências
 npm install
