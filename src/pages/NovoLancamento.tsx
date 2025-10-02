@@ -73,7 +73,7 @@ const NovoLancamento: React.FC = () => {
                 }
                 fetchLancamentos();
             }
-        }, [user, loading]);
+        }, [user, loading, lancamento]);
     
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -71,83 +71,86 @@ export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>){
     var saldoANC = 0
     var saldoPC = 0
     var saldoPNC = 0
+    var capitalSocial = 0
     var patrimonioLiquido = 0
+    var lucrosAcumulados = 0
+    var prejuizosAcumulados = 0
     var receitas = 0
     var despesas = 0
 
     for(const lancamento of lancamentos){
         const contas = await getContaByNome('nome', lancamento.getConta())
         const conta = contas[0]
+        const valor = moedaParaNumero(lancamento.getValor())
 
         switch(conta.getGrupo() + '-' + conta.getNatureza() + '-' + lancamento.getTipo()){
         case '1-devedor-debito':
         case '1-credor-credito':
-            saldoAC += moedaParaNumero(lancamento.getValor())
+            saldoAC += valor
             break
         case '1-devedor-credito':
         case '1-credor-debito':
-            saldoAC -= moedaParaNumero(lancamento.getValor())
+            saldoAC -= valor
             break
         case '2-devedor-debito':
         case '2-credor-credito':
-            saldoANC += moedaParaNumero(lancamento.getValor())
+            saldoANC += valor
             break
         case '2-devedor-credito':
         case '2-credor-debito':
-            saldoANC -= moedaParaNumero(lancamento.getValor())
+            saldoANC -= valor
             break
         case '3-credor-credito':
         case '3-devedor-debito':
-            saldoPC += moedaParaNumero(lancamento.getValor())
+            saldoPC += valor
             break
         case '3-credor-debito':
         case '3-devedor-credito':
-            saldoPC -= moedaParaNumero(lancamento.getValor())
+            saldoPC -= valor
             break
         case '4-credor-credito':
         case '4-devedor-debito':
-            saldoPNC += moedaParaNumero(lancamento.getValor())
+            saldoPNC += valor
             break
         case '4-credor-debito':
         case '4-devedor-credito':
-            saldoPNC -= moedaParaNumero(lancamento.getValor())
+            saldoPNC -= valor
             break
         case '5-credor-credito':
         case '5-devedor-debito':
-            patrimonioLiquido += moedaParaNumero(lancamento.getValor())
+            if(lancamento.getConta() == 'Capital Social')
+                capitalSocial += valor
+            else
+                lucrosAcumulados += valor
             break
         case '5-credor-debito':
         case '5-devedor-credito':
-            patrimonioLiquido -= moedaParaNumero(lancamento.getValor())
+            prejuizosAcumulados += valor
             break
         case '6-devedor-debito':
         case '6-credor-credito':
-            despesas += moedaParaNumero(lancamento.getValor())
+            despesas += valor
             break    
         case '6-credor-debito':
         case '6-devedor-credito':
-            despesas -= moedaParaNumero(lancamento.getValor())
+            despesas -= valor
             break 
         case '7-devedor-debito':
         case '7-credor-credito':
-            receitas += moedaParaNumero(lancamento.getValor())
+            receitas += valor
             break    
         case '7-credor-debito':
         case '7-devedor-credito':
-            receitas -= moedaParaNumero(lancamento.getValor())
+            receitas -= valor
             break  
         default:
             break
         }
     }
-
-    var capitalSocial = 0
+    
+    patrimonioLiquido = capitalSocial + lucrosAcumulados - prejuizosAcumulados
     var totalAtivos = saldoAC + saldoANC
     var totalPassivos = saldoPC + saldoPNC
-    var saldo = patrimonioLiquido - capitalSocial
-    var lucrosAcumulados = saldo > 0 ? 0 : saldo
-    var prejuizosAcumulados = saldo < 0 ? 0 : saldo
-
     var saldosMap: Map<any, string> = new Map()
 
     saldosMap.set('totalAtivos', formatarValorParaDinheiro(totalAtivos))
@@ -157,8 +160,8 @@ export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>){
     saldosMap.set('PC', formatarValorParaDinheiro(saldoPC))
     saldosMap.set('PNC', formatarValorParaDinheiro(saldoPNC))
     saldosMap.set('patrimonioLiquido', formatarValorParaDinheiro(patrimonioLiquido))
-    saldosMap.set('lucrosAcumulados', formatarValorParaDinheiro(prejuizosAcumulados))
-    saldosMap.set('prejuizosAcumulados', formatarValorParaDinheiro(lucrosAcumulados))
+    saldosMap.set('lucrosAcumulados', formatarValorParaDinheiro(lucrosAcumulados))
+    saldosMap.set('prejuizosAcumulados', formatarValorParaDinheiro(prejuizosAcumulados))
     saldosMap.set('receitas', formatarValorParaDinheiro(receitas))
     saldosMap.set('despesas', formatarValorParaDinheiro(despesas))
 
