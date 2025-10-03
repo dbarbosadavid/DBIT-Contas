@@ -65,7 +65,7 @@ const NovoLancamento: React.FC = () => {
             }
             fetchLancamentos();
         }
-        
+
             const fetchContas = async () => {
                 if (user) {
                     const data = await getAllContaService();
@@ -131,6 +131,11 @@ const NovoLancamento: React.FC = () => {
             }
 
         }catch{}
+
+        if(data.value == '' || descricao.value == '' || valor.value == 'R$ 0,00'){
+            window.alert("ERRO: Preencha todos os campos!!!")
+            return
+        }   
         
 
         try{
@@ -197,10 +202,10 @@ const NovoLancamento: React.FC = () => {
             <h1>Editar Lançamento</h1>
             <form id="lancamento-form">
                 <p>Lançamento de: </p>
-                <input id="descricao-input" type="text" placeholder="Ex.: Compra de matéria-prima" className="input-descricao" onChange={(e) => setDescricao(e.target.value)} value={descricao}/> 
+                <input required id="descricao-input" type="text" placeholder="Ex.: Compra de matéria-prima" className="input-descricao" onChange={(e) => setDescricao(e.target.value)} value={descricao}/> 
 
                 <p>Data do Lançamento</p>
-                <input type="date" name="" id="data-input" onChange={dateChange} value={date}/>
+                <input required type="date" name="" id="data-input" onChange={dateChange} value={date}/>
             
                 <div id='prazo-div' hidden>
                     <p id='label-data-vencimento'>Data Vencimento</p>
@@ -218,14 +223,14 @@ const NovoLancamento: React.FC = () => {
             
                 <p>
                     Tipo
-                    <select id="tipo">
+                    <select required id="tipo">
                         <option id='credito' value="credito">Crédito</option>
                         <option id='debito' value="debito">Débito</option>
                     </select>
                 </p>    
 
                 <p>Valor</p>
-                <input type="Text" placeholder="R$ 0,00" className="input-descricao" id="valor" value={valor} onChange={handleChange}/>
+                <input required type="Text" placeholder="R$ 0,00" className="input-descricao" id="valor" value={valor} onChange={handleChange}/>
                 <hr />
             </form>
 
