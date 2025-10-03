@@ -25,6 +25,47 @@ const NovoLancamento: React.FC = () => {
 
 
     useEffect(() => {
+        if(id){
+            const fetchLancamentos = async () => {
+                const lancamentoId = await getLancamentoByIdService(id, user)
+                setLancamento(lancamentoId)
+                
+                if(!lancamentoId)
+                    return
+
+                let date = lancamentoId.getData().split('/')
+                date.reverse()
+                let dateString = date.join('-')
+
+                setDate(dateString)
+                setValor(lancamento.getValor())
+                setDescricao(lancamentoId.getDescricao())
+
+                let prazo = getInput('prazo-div')
+                if(lancamentoId.getVencimento() != ''){
+                    prazo.removeAttribute('hidden')
+                    let date = lancamentoId.getVencimento().split('/')
+                    date.reverse()
+                    let dateString = date.join('-')
+                    setVencimento(dateString)
+                }
+                let contaSelecionada = getInput(lancamento.getConta())
+                contaSelecionada.setAttribute('selected', '')
+
+                let debito = getInput('debito')
+                let credito = getInput('credito')
+
+                if(lancamentoId.getTipo() == 'credito'){
+                    credito.setAttribute('selected', '')
+                }
+                else{
+                    debito.setAttribute('selected', '')
+                }
+                setLoading(false)
+            }
+            fetchLancamentos();
+        }
+        
             const fetchContas = async () => {
                 if (user) {
                     const data = await getAllContaService();
@@ -34,46 +75,7 @@ const NovoLancamento: React.FC = () => {
             };
             fetchContas();
 
-            if(id){
-                const fetchLancamentos = async () => {
-                    const lancamentoId = await getLancamentoByIdService(id, user)
-                    setLancamento(lancamentoId)
-                    
-                    if(!lancamentoId)
-                        return
-
-                    let date = lancamentoId.getData().split('/')
-                    date.reverse()
-                    let dateString = date.join('-')
-
-                    setDate(dateString)
-                    setValor(lancamento.getValor())
-                    setDescricao(lancamentoId.getDescricao())
-
-                    let prazo = getInput('prazo-div')
-                    if(lancamentoId.getVencimento() != ''){
-                        prazo.removeAttribute('hidden')
-                        let date = lancamentoId.getVencimento().split('/')
-                        date.reverse()
-                        let dateString = date.join('-')
-                        setVencimento(dateString)
-                    }
-                    let contaSelecionada = getInput(lancamento.getConta())
-                    contaSelecionada.setAttribute('selected', '')
-
-                    let debito = getInput('debito')
-                    let credito = getInput('credito')
-
-                    if(lancamentoId.getTipo() == 'credito'){
-                        credito.setAttribute('selected', '')
-                    }
-                    else{
-                        debito.setAttribute('selected', '')
-                    }
-                    setLoading(false)
-                }
-                fetchLancamentos();
-            }
+            
         }, [user, loading]);
     
 
