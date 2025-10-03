@@ -68,7 +68,7 @@ const NovoLancamento: React.FC = () => {
 
             const fetchContas = async () => {
                 if (user) {
-                    const data = await getAllContaService();
+                    const data = await getAllContaService(user);
                     setContas(data);
                     setLoading(false)
                 }
@@ -159,9 +159,16 @@ const NovoLancamento: React.FC = () => {
                 navigate("/lancamentos")
             }
             else{
-                console.log('else ')
-                await addLancamentoService(data.value, descricao.value, valor.value, contaDebitar.value, 'debito', dataVencimento.value, prazo, user)
-                await addLancamentoService(data.value, descricao.value, valor.value, contaCreditar.value, 'credito', dataVencimento.value, prazo, user)
+                if(contaCreditar.value == '' && contaDebitar.value != ''){
+                    await addLancamentoService(data.value, descricao.value, valor.value, contaDebitar.value, 'debito', dataVencimento.value, prazo, user)
+                }
+                else if(contaCreditar.value != '' && contaDebitar.value == ''){
+                    await addLancamentoService(data.value, descricao.value, valor.value, contaCreditar.value, 'credito', dataVencimento.value, prazo, user)
+                    
+                } else {
+                    await addLancamentoService(data.value, descricao.value, valor.value, contaDebitar.value, 'debito', dataVencimento.value, prazo, user)
+                    await addLancamentoService(data.value, descricao.value, valor.value, contaCreditar.value, 'credito', dataVencimento.value, prazo, user)
+                }
                 window.alert("Lançamanto realizado com sucesso!!!")
                 navigate("/lancamentos")
             }

@@ -24,7 +24,7 @@ const Balanco: React.FC = () => {
 
     if(!loading){
       const fetchSaldosMap = async () =>{
-        const data = await gerarSaldosMap(lancamentos)
+        const data = await gerarSaldosMap(lancamentos, user)
         setSaldosMap(data)
       }
       fetchSaldosMap();

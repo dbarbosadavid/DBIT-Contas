@@ -13,7 +13,7 @@ const LivroRazao: React.FC = () => {
     useEffect(() => {
         const fetchConta = async () => {
             if (user) {
-                const data = await getAllContaService();
+                const data = await getAllContaService(user);
                 setContas(data);
                 setLoading(false)
                 }

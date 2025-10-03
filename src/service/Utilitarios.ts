@@ -66,7 +66,7 @@ export function valorParaComparacao(coluna: string, lanc: LancamentoDTO): number
         }
     }
 
-export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>){
+export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>, user: any){
     var saldoAC = 0
     var saldoANC = 0
     var saldoPC = 0
@@ -79,7 +79,7 @@ export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>){
     var despesas = 0
 
     for(const lancamento of lancamentos){
-        const contas = await getContaByNome('nome', lancamento.getConta())
+        const contas = await getContaByNome('nome', lancamento.getConta(), user)
         const conta = contas[0]
         const valor = moedaParaNumero(lancamento.getValor())
 
@@ -125,6 +125,8 @@ export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>){
             break
         case '5-credor-debito':
         case '5-devedor-credito':
+            if(lancamento.getConta() == 'Capital Social')
+                capitalSocial -= valor
             prejuizosAcumulados += valor
             break
         case '6-devedor-debito':
@@ -147,7 +149,8 @@ export async function gerarSaldosMap(lancamentos: Array<LancamentoDTO>){
             break
         }
     }
-    
+    lucrosAcumulados += receitas
+    prejuizosAcumulados += despesas
     patrimonioLiquido = capitalSocial + lucrosAcumulados - prejuizosAcumulados
     var totalAtivos = saldoAC + saldoANC
     var totalPassivos = saldoPC + saldoPNC

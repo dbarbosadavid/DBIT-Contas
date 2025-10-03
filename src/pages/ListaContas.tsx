@@ -19,13 +19,20 @@ interface Conta {
 const ListaContas: React.FC = () => {
   const { user } = useAuth()
   const [contas, setContas] = useState<Conta[]>([]);
+  const [contasUser, setContasUser] = useState<Conta[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchContas = async () => {
       const contasRef = ref(db, "contas/lista-contas");
+      console.log('USER ID', user.uid)
+      const contasRefUser = ref(db, `user/${user.uid}/contas`);
+
       const snapshot = await get(contasRef);
+      const snapshot2 = await get(contasRefUser);
+
+      console.log("CONTAS REF USER ", snapshot2.val())
 
       if (snapshot.exists()) {
         const data = snapshot.val();
@@ -33,15 +40,30 @@ const ListaContas: React.FC = () => {
           id: key,
           ...data[key],
         }));
-        setContas(lista);
+        setContas(lista)     
+
       } else {
         setContas([]);
+      }
+
+      if(snapshot2.exists()){
+        const data2 = snapshot2.val();
+        const lista2: Conta[] = Object.keys(data2).map((key) => ({
+          id: key,
+          ...data2[key],
+        }));
+        console.log(lista2)
+        setContasUser(lista2);
+      }
+      else{
+        setContasUser([])
       }
       setLoading(false);
     };
 
+
     fetchContas();
-  }, []);
+  }, [user]);
 
     const excluirConta = async (id: string, nomeConta: string) => {
     try {
@@ -98,6 +120,17 @@ const ListaContas: React.FC = () => {
         </thead>
         <tbody>
           {contas.map((conta) => (
+            <tr key={conta.id}>
+              <td>{conta.nome}</td>
+              <td>{conta.grupo}</td>
+              <td>{conta.subGrupo}</td>
+              <td>{conta.elemento}</td>
+              <td>{conta.natureza}</td>
+              <td>        
+              </td>
+            </tr>
+          ))}
+          {contasUser.map((conta) => (
             <tr key={conta.id}>
               <td>{conta.nome}</td>
               <td>{conta.grupo}</td>

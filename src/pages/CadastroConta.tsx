@@ -19,7 +19,8 @@ const Contas: React.FC = () => {
   useEffect(() => {
     if (id) {
       const fetchConta = async () => {
-        const snapshot = await get(ref(db, `contas/lista-contas/${id}`));
+        const snapshot = await get(ref(db, `user/${user.uid}/contas/${id}`));
+
         console.log('snap ', snapshot)
         if (snapshot.exists()) {
           const conta = snapshot.val();
@@ -32,7 +33,7 @@ const Contas: React.FC = () => {
       };
       fetchConta();
     }
-  }, [id]);
+  }, [id, user]);
 
   const salvarConta = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -42,13 +43,21 @@ const Contas: React.FC = () => {
     return;
   }
   // Pegar todas as contas existentes
-  const snapshotContas = await get(ref(db, "contas/lista-contas"));
+  const snapshotContas = await get(ref(db, 'contas/lista-contas'));
+  const snapshotContas2 = await get(ref(db, `user/${user.uid}/contas`));
   const contasExistentes = snapshotContas.exists() ? snapshotContas.val() : {};
+  const contasExistentes2 = snapshotContas2.exists() ? snapshotContas2.val() : {};
+
+  console.log('contas: ', contasExistentes)
 
   const nomeDuplicado = Object.entries(contasExistentes).some(
     ([key, conta]: [string, any]) => conta.nome === nome && key !== id
   );
-  if (nomeDuplicado) {
+  const nomeDuplicado2 = Object.entries(contasExistentes2).some(
+    ([key, conta]: [string, any]) => conta.nome === nome && key !== id
+  );
+
+  if (nomeDuplicado || nomeDuplicado2) {
     alert("Já existe uma conta com este nome!");
     return;
   }
@@ -83,7 +92,7 @@ const Contas: React.FC = () => {
         }
       }
     
-    await update(ref(db, `contas/lista-contas/${id}`), {
+    await update(ref(db, `user/${user.uid}/contas`), {
       nome,
       grupo: Number(grupo),
       subGrupo: Number(subGrupo),
@@ -92,7 +101,7 @@ const Contas: React.FC = () => {
     });
     alert("Conta atualizada com sucesso!");
   } else {
-    const contasRef = ref(db, "contas/lista-contas");
+    const contasRef = ref(db, `user/${user.uid}/contas`);
     const novaRef = push(contasRef);
     await set(novaRef, {
       nome,
