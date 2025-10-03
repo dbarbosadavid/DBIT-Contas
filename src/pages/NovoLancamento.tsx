@@ -38,7 +38,7 @@ const NovoLancamento: React.FC = () => {
                 const fetchLancamentos = async () => {
                     const lancamentoId = await getLancamentoByIdService(id, user)
                     setLancamento(lancamentoId)
-                    setLoading(false)
+                    
                     if(!lancamentoId)
                         return
 
@@ -70,10 +70,11 @@ const NovoLancamento: React.FC = () => {
                     else{
                         debito.setAttribute('selected', '')
                     }
+                    setLoading(false)
                 }
                 fetchLancamentos();
             }
-        }, [user, loading, lancamento]);
+        }, [user, loading]);
     
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
