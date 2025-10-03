@@ -74,9 +74,12 @@ const Contas: React.FC = () => {
     return;
   }
 
+
   if (id) {
-    const contaAtual = contasExistentes[id];
-    const nomeAntigo = contaAtual.nome;
+
+    const contaAtual2 = contasExistentes2[id];
+
+    const nomeAntigo =contaAtual2;
 
     if (nome !== nomeAntigo) {
       const lancamentos = await getLancamentoContaService(nomeAntigo, user);
@@ -86,13 +89,15 @@ const Contas: React.FC = () => {
       lancamentos.forEach(lancamento => {
             updates[`/user/${user.uid}/lancamentos/${lancamento.getId()}/conta`] = nome;
       });
+
           
         if (Object.keys(updates).length > 0) {
           await update(ref(db), updates);
         }
       }
+  console.log('aaa')
     
-    await update(ref(db, `user/${user.uid}/contas`), {
+    await update(ref(db, `user/${user.uid}/contas/${id}`), {
       nome,
       grupo: Number(grupo),
       subGrupo: Number(subGrupo),
