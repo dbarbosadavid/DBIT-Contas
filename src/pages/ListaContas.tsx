@@ -83,7 +83,7 @@ const ListaContas: React.FC = () => {
             return;
         }
         
-        await remove(ref(db, `contas/lista-contas/${id}`));
+        await remove(ref(db, `/user/${user.uid}/contas/${id}`));
         setContas((prev) => prev.filter((conta) => conta.id !== id));
         alert("Conta excluída com sucesso!");
 
