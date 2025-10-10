@@ -79,7 +79,7 @@ const Contas: React.FC = () => {
 
     const contaAtual2 = contasExistentes2[id];
 
-    const nomeAntigo =contaAtual2;
+    const nomeAntigo = contaAtual2.nome;
 
     if (nome !== nomeAntigo) {
       const lancamentos = await getLancamentoContaService(nomeAntigo, user);
