@@ -1,0 +1,46 @@
+.detalhes-lancamentos {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  .toggle-btn {
+    background-color: #3b82f6;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .toggle-btn:hover {
+    background-color: #2563eb;
+  }
+  
+  .tabela-lancamentos {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+  }
+  
+  .tabela-lancamentos th,
+  .tabela-lancamentos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .tabela-lancamentos tbody th{
+    background-color: #ffffff;
+  }
+  
+  .tabela-lancamentos th {
+    background-color: #757575;
+  }
+  
+  .debito {
+    color: #e11d48;
+  }
+  
+  .credito {
+    color: #22c55e;
+  }
+  

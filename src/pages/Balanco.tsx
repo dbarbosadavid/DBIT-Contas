@@ -4,10 +4,13 @@ import { TipoAtivo } from "../components/TipoAtivo";
 import { useAuth } from "../firebase/useAuth";
 import { getAllLancamentoService } from "../service/LancamentoService";
 import { gerarSaldosMap } from "../service/Utilitarios";
+import DetalhesLancamentos from '../components/ContasListaBalanco';
+import { getAllContaService } from '../service/ContasService';
 
 const Balanco: React.FC = () => {
   const { user } = useAuth();
   const [lancamentos, setLancamentos] = useState<any>([]);
+  const [contas, setContas] = useState<any>([]);
   const [loading, setLoading] = useState(true)
   const [saldosMap, setSaldosMap] = useState<any>()
   
@@ -17,10 +20,18 @@ const Balanco: React.FC = () => {
         const data = await getAllLancamentoService(user);
                   setLancamentos(data);
         setLoading(false)
-
       }
     };
     fetchLancamentos();
+    const fetchContas = async () => {
+      if (user) {
+        const data = await getAllContaService(user);
+          setContas(data);
+        setLoading(false)
+
+      }
+    };
+    fetchContas();
 
     if(!loading){
       const fetchSaldosMap = async () =>{
@@ -48,11 +59,24 @@ const Balanco: React.FC = () => {
           saldo= {`R$ ${saldosMap?.get("AC") ?? "Carregando..."}`}
           class="ativos"
         />
+        <DetalhesLancamentos
+          titulo="Ativos Circulantes"
+          grupo={1}
+          contas={contas}
+          lancamentos={lancamentos}
+        />
         <TipoAtivo 
           grupo="Ativos Não Circulantes"
           saldo= {`R$ ${saldosMap?.get("ANC") ?? "Carregando..."}`}
           class="ativos"
         />
+        <DetalhesLancamentos
+          titulo="Ativos Não Circulantes"
+          grupo={2}
+          contas={contas}
+          lancamentos={lancamentos}
+        />
+        
         <TipoAtivo 
           grupo="Ativos Totais"
           saldo= {`R$ ${saldosMap?.get("totalAtivos") ?? "Carregando..."}`}
@@ -68,10 +92,22 @@ const Balanco: React.FC = () => {
           saldo= {`R$ ${saldosMap?.get("PC") ?? "Carregando..."}`}
           class="passivos"
         />
+        <DetalhesLancamentos
+          titulo="Passivos Circulantes"
+          grupo={3}
+          contas={contas}
+          lancamentos={lancamentos}
+        />
         <TipoAtivo 
           grupo="Passivos não circulantes"
           saldo= {`R$ ${saldosMap?.get("PNC") ?? "Carregando..."}`}
           class="passivos"
+        />
+        <DetalhesLancamentos
+          titulo="Passivos Não Circulantes"
+          grupo={4}
+          contas={contas}
+          lancamentos={lancamentos}
         />
         <TipoAtivo
           grupo="Passivos Totais"

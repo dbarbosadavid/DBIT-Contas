@@ -1,5 +1,6 @@
 .itens-balanco {
   display:flex;
+  align-items: center;
 }
 
 .div-balanco {
