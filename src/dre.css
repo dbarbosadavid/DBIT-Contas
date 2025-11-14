@@ -1,0 +1,34 @@
+.dre-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dre-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+  }
+  
+  .dre-tabela th {
+    background: #222;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .dre-tabela td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .dre-tabela .valor {
+    text-align: right;
+  }
+  
+  .destaque {
+    font-weight: bold;
+    background: #f3f3f3;
+  }
+  

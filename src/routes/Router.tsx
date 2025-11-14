@@ -7,6 +7,7 @@ import LivroRazao from "../pages/LivroRazao";
 import NovoLancamento from "../pages/NovoLancamento";
 import Contas from "../pages/CadastroConta";
 import ListaContas from "../pages/ListaContas";
+import DRETabela from "../pages/DRE";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/about" element={<About />} />
       <Route path="/novo-lancamento" element={<NovoLancamento key="new" />} />
       <Route path="/novo-lancamento/:id" element={<NovoLancamento key="edit" />} />
+      <Route path="/dre" element={<DRETabela key="edit" />} />
 
     </RouterRoutes>
   );

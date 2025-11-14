@@ -72,7 +72,7 @@ const DetalhesLancamentos: React.FC<Props> = ({
                   <td>{l.conta}</td>
                   <td>{l.descricao}</td>
                   <td>{l.tipo}</td>
-                  <td className={l.tipo === "debito" ? "debito" : "credito"}>
+                  <td className={(l.tipo === "debito" && titulo.includes('Passivos')) || (l.tipo === "credito" && titulo.includes('Ativos')) ? "debito" : "credito"}>
                     {l.valor}
                   </td>
                 </tr>

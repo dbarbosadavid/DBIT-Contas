@@ -1,6 +1,7 @@
 .itens-balanco {
-  display:flex;
+  padding: 2rem;
   align-items: center;
+  display: flex;
 }
 
 .div-balanco {
@@ -8,7 +9,7 @@
   padding: 1rem;
   margin-top: 3rem;
   margin-left: 2rem;
-  width: 20rem;
+  width: 10rem;
 }
 
 .div-balanco {
@@ -64,11 +65,3 @@
         }
 }
 
-@media screen and (max-width: 1000px) {
-  .itens-balanco {
-    display: inline;
-  }
-  #root{
-    max-width: 400px;
-  }
-}

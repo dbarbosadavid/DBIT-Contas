@@ -110,7 +110,7 @@ const Balanco: React.FC = () => {
           lancamentos={lancamentos}
         />
         <TipoAtivo
-          grupo="Passivos Totais"
+          grupo="Passivos + PL"
           saldo= {`R$ ${saldosMap?.get("totalPassivos") ?? "Carregando..."}`}
           class="passivos-totais"
         />

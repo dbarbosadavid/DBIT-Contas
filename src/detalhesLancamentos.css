@@ -24,7 +24,7 @@
   
   .tabela-lancamentos th,
   .tabela-lancamentos td {
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     padding: 8px;
   }
 
@@ -37,10 +37,10 @@
   }
   
   .debito {
-    color: #e11d48;
+    color: #ad0000;
   }
   
   .credito {
-    color: #22c55e;
+    color: #008b33;
   }
   
