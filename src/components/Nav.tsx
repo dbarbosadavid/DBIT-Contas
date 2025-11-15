@@ -37,6 +37,8 @@ const Nav: React.FC = () => {
           />
         </Link>
 
+        <Link to="/dre">DRE</Link>
+
         <Link to="/about">Sobre</Link>
         <a onClick={()=>{
           let confirm = window.confirm("Deseja realmente sair? ");

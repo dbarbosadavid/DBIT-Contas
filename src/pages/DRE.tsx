@@ -1,20 +1,53 @@
-import "../dre.css"; // opcional
+import { useEffect, useState } from "react";
+import { getAllLancamentoService } from "../service/LancamentoService";
+import { getAllContaService } from "../service/ContasService";
+import { gerarDRE, type ItemDRE } from "../service/DREService";
+import { useAuth } from "../firebase/useAuth";
 
 const DRETabela: React.FC = () => {
-  /*
-    Estrutura esperada em "dados":
-    [
-      { categoria: "Receita Bruta", valor: 100000 },
-      { categoria: "(-) Deduções e Impostos", valor: -15000 },
-      { categoria: "Receita Líquida", valor: 85000, destaque: true },
-      { categoria: "(-) Custo dos Produtos", valor: -30000 },
-      { categoria: "Lucro Bruto", valor: 55000, destaque: true },
-      ...
-    ]
-  */
+  const { user } = useAuth();
+  const [dados, setDados] = useState<ItemDRE[]>([]);
+  const [lancamentos, setLancamentos] = useState<any>([]);
+  const [contas, setContas] = useState<any>([]);
+  const [loading, setLoading] = useState(true)
+  
+
+  useEffect(() => {
+    const carregar = async () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+      const fetchLancamentos = async () => {
+            if (user) {
+              const data = await getAllLancamentoService(user);
+              setLancamentos(data);
+              setLoading(false)
+            }
+          };
+          fetchLancamentos();
+          const fetchContas = async () => {
+            if (user) {
+              const data = await getAllContaService(user);
+              setContas(data);
+              setLoading(false)
+      
+            }
+          };
+          fetchContas();
+          
+      if(!loading){
+        const dre = gerarDRE(lancamentos, contas);
+        setDados(dre);
+      }
+    };
+
+    carregar();
+  }, [user, loading]);
 
   const formatar = (valor: any) =>
-    valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
 
   return (
     <div className="dre-container">
@@ -29,10 +62,21 @@ const DRETabela: React.FC = () => {
         </thead>
 
         <tbody>
-            <tr>
-              <td>a</td>
-              <td className="valor">aa</td>
-            </tr>
+          {dados.map((linha, index) =>
+            linha.tipo === "titulo" ? (
+              <tr key={index} className="linha-titulo">
+                <td colSpan={2}>{linha.categoria}</td>
+              </tr>
+            ) : (
+              <tr
+                key={index}
+                className={linha.destaque ? "linha-destaque" : ""}
+              >
+                <td>{linha.categoria}</td>
+                <td className="valor">{formatar(linha.valor)}</td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>

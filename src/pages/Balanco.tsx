@@ -23,6 +23,7 @@ const Balanco: React.FC = () => {
       }
     };
     fetchLancamentos();
+    
     const fetchContas = async () => {
       if (user) {
         const data = await getAllContaService(user);
