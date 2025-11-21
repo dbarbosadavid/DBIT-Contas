@@ -1,0 +1,173 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+input{
+  text-align: center;
+  font-size: 15px;
+  height: 30px;
+}
+
+input, .formButton{
+  width: 70%;
+  margin-bottom: 2vmax;
+  margin-top: -10px;
+}
+
+#dbit-logo{
+  width: 10rem;
+  margin-bottom: -40px;
+}
+
+
+div #form {
+  padding: 25px;
+  padding-right: 30px;
+  align-self: center;
+  border: 3px;
+  border-style:double;
+  border-radius: 20px;
+}
+
+.input-descricao{
+  text-align: left;
+}
+
+#lancamento-form input:not(#checkbox), label{
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+select {
+  height: 30px;
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: medium;
+}
+
+thead tr th{
+  width: 10rem;
+}
+
+thead tr th:hover {
+  cursor: pointer;
+  background-color: rgb(72, 106, 112);
+}
+
+
+
+table, table th, table tr {
+  border-radius: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Cabeçalho */
+thead {
+    background: linear-gradient(90deg, #4e54c8, #8f94fb);
+    color: white;
+    text-align: left;
+}
+
+th {
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s;
+}
+
+th:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Linhas */
+tbody tr {
+    background-color: #535353;
+    transition: background 0.3s, transform 0.2s;
+}
+
+
+tbody tr:hover {
+    background-color: #8d8d8d;
+    transform: translateY(-2px);
+}
+
+td {
+    padding: 8px 16px;
+    border-bottom: 1px solid #3a3a3a;
+}
+
+/* Botões de ação */
+td button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: transform 0.2s;
+}
+
+td button:hover {
+    transform: scale(1.2);
+}
+
+td img {
+    display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  thead tr th:hover{
+    background-color: rgb(150, 239, 255);
+  }
+  tbody tr {
+      background-color: rgb(189, 189, 189);
+      transition: background 0.3s, transform 0.2s;
+  }
+
+  tbody tr:hover {
+      background-color: #e2e2e2;
+      transform: translateY(-2px);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #root{
+    max-width: 400px;
+  }
+}
+
+h2 {
+  font-size: medium;
+}
+
+
+
+

@@ -1,0 +1,37 @@
+.dre-container {
+  max-width: 700px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.dre-tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dre-tabela th,
+.dre-tabela td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dre-tabela .valor {
+  text-align: right;
+  width: 140px;
+}
+
+.linha-titulo td {
+  background: #f3f3f3;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-top: 14px;
+}
+
+.linha-destaque {
+  background: #e8f5e9;
+  font-weight: bold;
+}

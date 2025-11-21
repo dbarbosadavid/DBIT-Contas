@@ -1,0 +1,72 @@
+.planilha-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    overflow-x: auto;
+}
+
+.planilha-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 12px;
+}
+
+.planilha-table th, .planilha-table td {
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+    text-align: right;
+}
+
+.planilha-table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+.planilha-table td.text-left {
+    text-align: left;
+}
+
+.planilha-table tr.header-row th {
+    background-color: #d0d0d0;
+    border-bottom: 2px solid #999;
+}
+
+.planilha-table tr.grupo-row td {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.planilha-table tr.total-row td {
+    background-color: #e8e8e8;
+    font-weight: bold;
+    border-top: 2px solid #666;
+}
+
+.yellow-bg {
+    background-color: #b6c71a !important;
+}
+
+.blue-bg {
+    background-color: #e6f3ff !important;
+}
+
+.gray-bg {
+    background-color: #f2f2f2 !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.positive {
+    color: black;
+}
+
+.negative {
+    color: red;
+}
